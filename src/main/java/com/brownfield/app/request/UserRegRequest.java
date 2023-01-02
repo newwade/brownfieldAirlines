@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequest {
+public class UserRegRequest {
 
     private String firstName;
     private String lastName;
