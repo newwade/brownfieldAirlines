@@ -2,7 +2,7 @@ package com.brownfield.app.service;
 
 
 import com.brownfield.app.entity.User;
-import com.brownfield.app.request.UserRequest;
+import com.brownfield.app.request.UserRegRequest;
 import com.brownfield.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User saveUserService(UserRequest userDto) {
+    public User saveUserService(UserRegRequest userDto) {
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());

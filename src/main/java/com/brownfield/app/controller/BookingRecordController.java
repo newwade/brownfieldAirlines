@@ -36,4 +36,5 @@ public class BookingRecordController {
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
+
 }

@@ -1,6 +1,6 @@
 package com.brownfield.app.controller;
 
-import com.brownfield.app.request.UserRequest;
+import com.brownfield.app.request.UserRegRequest;
 import com.brownfield.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") UserRequest userDto, BindingResult result, Model model){
+    public String registerUser(@ModelAttribute("user") UserRegRequest userDto, BindingResult result, Model model){
         if(result.hasErrors()){
             model.addAttribute("user",userDto);
             return "/register";

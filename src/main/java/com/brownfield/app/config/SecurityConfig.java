@@ -3,6 +3,7 @@ package com.brownfield.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,33 +26,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.headers().frameOptions().disable();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
-//        http.authorizeHttpRequests((requests)->requests
-//                        .requestMatchers("/").permitAll()
-//                .requestMatchers("/register").permitAll()
-//                .requestMatchers("/api/v1/user/*").permitAll()
-//                        .requestMatchers("/api/v1/flight/*").permitAll()
-//                .anyRequest().authenticated())
-//                .formLogin((form) -> {
-//                    form
-//                            .loginPage("/login")
-//                            .loginProcessingUrl("/api/v1/user/login")
-//                            .defaultSuccessUrl("/")
-//                            .permitAll();
-//                })
-//                .logout((logout) -> {
-//                logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-//        });;
+        http.authorizeHttpRequests((requests)-> requests.requestMatchers("/api/v1/**")
+                .permitAll().anyRequest().authenticated())
+                .formLogin().permitAll();
         return http.build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails userDetails = User.builder().username("admin").password(
-                passwordEncoder().encode("root")).roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(userDetails);
+    public UserDetailsService users() {
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder().encode("root"))
+                .roles("USER", "ADMIN")
+                .authorities("ROLE_ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(admin);
     }
 
     @Bean

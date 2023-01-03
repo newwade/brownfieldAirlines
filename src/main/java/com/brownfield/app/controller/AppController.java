@@ -1,7 +1,7 @@
 package com.brownfield.app.controller;
 
 import com.brownfield.app.request.FlightSearchRequest;
-import com.brownfield.app.request.UserRequest;
+import com.brownfield.app.request.UserRegRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AppController {
 
     @Autowired
-    private UserRequest userDto;
+    private UserRegRequest userRegRequest;
     @Autowired
-    private FlightSearchRequest flightDto;
+    private FlightSearchRequest flightSearchRequest;
 
     @GetMapping("/")
     public String homePage(Model model){
-        model.addAttribute("flight",flightDto);
+        model.addAttribute("flight",flightSearchRequest);
         return "search";
     }
 
@@ -28,7 +28,7 @@ public class AppController {
 
     @GetMapping("/register")
     public String register(Model model){
-        model.addAttribute("user",userDto);
+        model.addAttribute("user",userRegRequest);
         return "register";
     }
 
