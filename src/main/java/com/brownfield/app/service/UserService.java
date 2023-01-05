@@ -1,7 +1,7 @@
 package com.brownfield.app.service;
 
 import com.brownfield.app.entity.User;
-import com.brownfield.app.request.UserRegRequest;
+import com.brownfield.app.model.request.UserRegRequest;
 
 public interface UserService {
 

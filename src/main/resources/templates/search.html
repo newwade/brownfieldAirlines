@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 ><head>
     <meta charset="ISO-8859-1">
     <meta name="viewport"
@@ -32,9 +33,9 @@
                     <a class="nav-link text-light" href="/flight">Flight</a>
                 </li>
             </ul>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between gap-2">
                 <a class="text-light text-decoration-none" href="/">username</a>
-                <a class="text-light text-decoration-none" href="/login">Login</a>
+                <a class="text-light ml-2 text-decoration-none" href="/logout">Logout</a>
             </div>
         </div>
     </div>
@@ -51,7 +52,7 @@
                               action="#"
                               method="post"
                               role="form"
-                              th:action="@{/api/v1/flight/find}"
+                              th:action="@{/api/v1/flight/model/find}"
                               th:object="${flight}"
                         >
                             <div class="row searchForm">
@@ -92,27 +93,6 @@
                                 </div>
                             </div>
                         </form>
-                        <br /> <br />
-                            <div class="table-responsive">
-                                <table class="table table-bordered" >
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Flight Number</th>
-                                        <th scope="col">Origin</th>
-                                        <th scope="col">Destination</th>
-                                        <th scope="col">Flight Time</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="flight, state : ${flights}">
-                                        <td th:utext="${flight.flightInfo.flightNumber}">index</td>
-                                        <td th:utext="${flight.origin}">count</td>
-                                        <td th:utext="${flight.destination}">size</td>
-                                        <td th:utext="${flight.time}">even</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                     </div>
                 </div>
             </div>

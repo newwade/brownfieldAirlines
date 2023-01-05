@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface FlightRepository extends JpaRepository<Flight,Long> {
-    List<Flight> findByOriginAndDestinationAndDateOrderByTimeAsc(String origin, String destination, LocalDate date);
+    List<Flight> findByOriginAndDestinationAndFlightDateOrderByFlightTimeAsc(String origin, String destination, LocalDate date);
 }

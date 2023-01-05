@@ -1,6 +1,7 @@
 package com.brownfield.app.service;
 
 import com.brownfield.app.entity.Flight;
+import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class FlightServiceImpl implements FlightService{
     public Flight findFlightById(long id) {
         Optional<Flight> flight = flightRepository.findById(id);
         if(flight.isEmpty()){
-            throw new IllegalArgumentException();
+            throw new RecordNotFoundException("No record found for id : "+id);
         }
         return flight.get();
     }
@@ -40,7 +41,7 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date) {
-        return flightRepository.findByOriginAndDestinationAndDateOrderByTimeAsc(origin,destination,date);
+        return flightRepository.findByOriginAndDestinationAndFlightDateOrderByFlightTimeAsc(origin,destination,date);
     }
 
 }

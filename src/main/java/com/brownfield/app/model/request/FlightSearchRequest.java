@@ -1,4 +1,4 @@
-package com.brownfield.app.request;
+package com.brownfield.app.model.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

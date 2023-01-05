@@ -2,7 +2,7 @@ package com.brownfield.app.service;
 
 
 import com.brownfield.app.entity.User;
-import com.brownfield.app.request.UserRegRequest;
+import com.brownfield.app.model.request.UserRegRequest;
 import com.brownfield.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

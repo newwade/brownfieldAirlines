@@ -26,9 +26,9 @@ public class BookingRecord {
     private String origin;
     private String destination;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    private LocalDate flightDate;
     @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime time;
+    private LocalTime flightTime;
     private double fare;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime bookingDate;

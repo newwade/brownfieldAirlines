@@ -3,7 +3,6 @@ package com.brownfield.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,9 +27,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.headers().frameOptions().disable();
         http.authorizeHttpRequests((requests)-> requests.requestMatchers("/api/v1/**")
-                .permitAll().anyRequest().authenticated())
-                .formLogin().permitAll();
+                .permitAll()
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin().permitAll().and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/");
         return http.build();
     }
 
@@ -49,4 +54,6 @@ public class SecurityConfig {
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+
 }

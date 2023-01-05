@@ -1,4 +1,4 @@
-package com.brownfield.app.request;
+package com.brownfield.app.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,11 +12,9 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRegRequest {
-
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private String password;
-
 }

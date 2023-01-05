@@ -3,8 +3,9 @@ package com.brownfield.app.service;
 import com.brownfield.app.entity.BookingRecord;
 import com.brownfield.app.entity.Flight;
 import com.brownfield.app.entity.Passenger;
+import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.repository.BookingRepository;
-import com.brownfield.app.request.BookingRequest;
+import com.brownfield.app.model.request.BookingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +32,8 @@ public class BookingServiceImpl implements BookingService{
         bookingRecord.setPassengers(bookingRequest.getPassengers());
         bookingRecord.setOrigin(flight.getOrigin());
         bookingRecord.setDestination(flight.getDestination());
-        bookingRecord.setDate(flight.getDate());
-        bookingRecord.setTime(flight.getTime());
+        bookingRecord.setFlightDate(flight.getFlightDate());
+        bookingRecord.setFlightTime(flight.getFlightTime());
         bookingRecord.setFare(flight.getFare().getFare());
         bookingRecord.setFlightNumber(flight.getFlightInfo().getFlightNumber());
         bookingRecord.setBookingDate(LocalDateTime.now());
@@ -49,9 +50,10 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public BookingRecord findBookingById(long id) {
+
         Optional<BookingRecord> bookingRecord = bookingRepository.findById(id);
         if(bookingRecord.isEmpty()){
-            throw new IllegalArgumentException();
+            throw new RecordNotFoundException("No record found for id : "+id);
         }
         return bookingRecord.get();
     }
@@ -59,5 +61,14 @@ public class BookingServiceImpl implements BookingService{
     @Override
     public List<BookingRecord> findAllBooking() {
         return bookingRepository.findAll();
+    }
+
+    @Override
+    public void deleteBookingById(long id) {
+        Optional<BookingRecord> bookingRecord = bookingRepository.findById(id);
+        if(bookingRecord.isEmpty()){
+            throw new RecordNotFoundException("No record found for id : "+id);
+        }
+        bookingRepository.deleteById(id);
     }
 }

@@ -1,7 +1,7 @@
 package com.brownfield.app.controller;
 
 import com.brownfield.app.entity.BookingRecord;
-import com.brownfield.app.request.BookingRequest;
+import com.brownfield.app.model.request.BookingRequest;
 import com.brownfield.app.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,12 @@ public class BookingRecordController {
     public ResponseEntity<BookingRecord> saveBooking(@RequestBody @Valid BookingRequest bookingRequest){
         BookingRecord response = bookingService.saveBooking(bookingRequest);
         return new ResponseEntity(response, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/cancel/{id}")
+    public ResponseEntity<?> deleteBookingById(@PathVariable("id") long id){
+        bookingService.deleteBookingById(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 

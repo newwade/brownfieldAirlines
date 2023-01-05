@@ -23,9 +23,9 @@ public class Flight {
     private String origin;
     private String destination;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    private LocalDate flightDate;
     @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime time;
+    private LocalTime flightTime;
     @OneToOne(cascade = CascadeType.ALL)
     private FlightInfo flightInfo;
     @OneToOne(cascade = CascadeType.ALL)
