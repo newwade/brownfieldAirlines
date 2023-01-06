@@ -19,9 +19,6 @@ public class AppController {
 
     @GetMapping("/")
     public String homePage(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object username = auth.getPrincipal();
-        Object password =  auth.getCredentials();
         model.addAttribute("flight",flightSearchRequest);
         return "search";
     }

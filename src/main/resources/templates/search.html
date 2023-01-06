@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-><head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/path/to/layout.html}">
+
+<head>
     <meta charset="ISO-8859-1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,12 +31,16 @@
                     <a class="nav-link text-light" href="/checkin">Checkin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="/flight">Flight</a>
+                    <a class="nav-link text-light" href="/flight">Flights</a>
                 </li>
             </ul>
-            <div class="d-flex justify-content-between gap-2">
-                <a class="text-light text-decoration-none" href="/">username</a>
-                <a class="text-light ml-2 text-decoration-none" href="/logout">Logout</a>
+            <div sec:authorize="isAuthenticated()" class="d-flex justify-content-between align-items-center gap-2">
+                    <div sec:authentication="name" class="text-light text-decoration-none"></div>
+                    <a class="text-light text-decoration-none" href="/logout">Logout</a>
+            </div>
+            <div sec:authorize="isAnonymous()" class="d-flex justify-content-between align-items-center gap-2">
+                        <div class="text-light text-decoration-none">Guest</div>
+                        <a class="text-light text-decoration-none" href="/login">Login</a>
             </div>
         </div>
     </div>
@@ -49,9 +54,9 @@
                     <div class="card-header border-light text-center">Search Flights</div>
                     <div class="card-body">
                         <form name="searchFlightsForm"
-                              action="#"
                               method="post"
                               role="form"
+                              th:method="POST"
                               th:action="@{/api/v1/flight/model/find}"
                               th:object="${flight}"
                         >
@@ -79,7 +84,7 @@
                                             />
                                         </div>
                                         <div class="col-sm-2 col-md-3 col-sm-12 ">
-                                            <input type="date" id="traveldate"
+                                            <input type="date" id="date"
                                                    class="form-control search-slt" placeholder="Travel Date"
                                                    th:field="*{date}"
                                             >
@@ -87,7 +92,7 @@
                                        <br><br><br><br>
                                         <div class="col-sm-2 col-md-3 col-sm-12">
                                             <button type="submit" class="btn btn-primary"
-                                                   >Search</button>
+                                                   >Search Flight</button>
                                         </div>
                                     </div>
                                 </div>

@@ -1,11 +1,15 @@
 package com.brownfield.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -22,14 +26,17 @@ public class Flight {
     private long id;
     private String origin;
     private String destination;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
-    @JsonFormat(pattern="HH:mm:ss")
+    @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime flightTime;
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "flightInfoId")
     private FlightInfo flightInfo;
+    @JoinColumn(name = "fareId")
     @OneToOne(cascade = CascadeType.ALL)
     private Fare fare;
+    @JoinColumn(name = "inventoryId")
     @OneToOne(cascade = CascadeType.ALL)
     private Inventory inventory;
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +44,8 @@ public class FlightController {
     }
 
     @PostMapping("/model/find")
-    public String findFlightModel(@ModelAttribute("flight") FlightSearchRequest request, Model model){
+    public String findFlightModel(@ModelAttribute("flight") FlightSearchRequest request, BindingResult result, Model model){
+        Object error = result.getAllErrors();
         List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
                 ,request.getDestination(),request.getDate());
         model.addAttribute("flights",response);

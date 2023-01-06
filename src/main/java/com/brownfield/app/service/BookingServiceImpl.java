@@ -1,6 +1,7 @@
 package com.brownfield.app.service;
 
 import com.brownfield.app.entity.BookingRecord;
+import com.brownfield.app.entity.Checkin;
 import com.brownfield.app.entity.Flight;
 import com.brownfield.app.entity.Passenger;
 import com.brownfield.app.exception.RecordNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -35,7 +37,7 @@ public class BookingServiceImpl implements BookingService{
         bookingRecord.setFlightDate(flight.getFlightDate());
         bookingRecord.setFlightTime(flight.getFlightTime());
         bookingRecord.setFare(flight.getFare().getFare());
-        bookingRecord.setFlightNumber(flight.getFlightInfo().getFlightNumber());
+        bookingRecord.setSeatNumber((int) ((flight.getFlightInfo().getNumberOfSeats()+1)-flight.getInventory().getCount()));
         bookingRecord.setBookingDate(LocalDateTime.now());
         bookingRecord.setStatus("BOOKED");
         BookingRecord bookingRecordDb = bookingRepository.save(bookingRecord);

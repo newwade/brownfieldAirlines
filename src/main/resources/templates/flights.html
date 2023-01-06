@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-><head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
     <meta charset="ISO-8859-1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,7 +60,7 @@
                                 <tr th:each="flight, state : ${flights}">
                                     <td th:utext="${flight.flightInfo.flightNumber}">index</td>
                                     <td th:utext="${flight.origin}">count</td>
-                                    <td th:utext="${flight.time}">even</td>
+                                    <td th:utext="${flight.flightTime}">even</td>
                                     <td th:utext="${flight.destination}">size</td>
                                 </tr>
                                 </tbody>

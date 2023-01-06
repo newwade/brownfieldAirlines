@@ -1,16 +1,17 @@
 package com.brownfield.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "bookingRecord")
@@ -25,15 +26,15 @@ public class BookingRecord {
     private long flightId;
     private String origin;
     private String destination;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
-    @JsonFormat(pattern="HH:mm:ss")
+    @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime flightTime;
     private double fare;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private LocalDateTime bookingDate;
-    private String flightNumber;
+    private Integer seatNumber;
     private String status;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime bookingDate;
     @OneToMany(mappedBy = "bookingRecord",
             orphanRemoval = true,
             fetch = FetchType.LAZY,
