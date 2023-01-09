@@ -18,12 +18,12 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") UserRegRequest userDto, BindingResult result, Model model){
+    public String registerUser(@ModelAttribute("user") UserRegRequest userRequest, BindingResult result, Model model){
         if(result.hasErrors()){
-            model.addAttribute("user",userDto);
+            model.addAttribute("user",userRequest);
             return "/register";
         }
-        userService.saveUserService(userDto);
+        userService.saveUserService(userRequest);
         return "redirect:/login";
     }
 

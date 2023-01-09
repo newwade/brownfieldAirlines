@@ -40,6 +40,7 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors().disable();
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.authorizeHttpRequests((requests)-> requests.antMatchers("/api/v1/**")
@@ -47,7 +48,13 @@ public class SecurityConfig{
                         .antMatchers("/register").permitAll()
                         .antMatchers("/").permitAll()
                         .anyRequest().authenticated())
-                .formLogin().permitAll().and()
+                .formLogin((form) -> {
+                    form
+                            .loginPage("/login")
+                            .loginProcessingUrl("/signin")
+                            .defaultSuccessUrl("/")
+                            .permitAll();
+                })
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");

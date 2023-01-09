@@ -62,6 +62,10 @@
                                     <td th:utext="${flight.origin}">count</td>
                                     <td th:utext="${flight.flightTime}">even</td>
                                     <td th:utext="${flight.destination}">size</td>
+                                    <td><button class="btn btn-primary">
+                                        <a th:href="@{/api/v1/flight/page/find/(id=${flight.id})}">
+                                            ->
+                                        </a></button></td>
                                 </tr>
                                 </tbody>
                             </table>

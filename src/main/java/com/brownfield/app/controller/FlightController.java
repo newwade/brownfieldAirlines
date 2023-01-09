@@ -43,13 +43,20 @@ public class FlightController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @PostMapping("/model/find")
+    @PostMapping("/page/find")
     public String findFlightModel(@ModelAttribute("flight") FlightSearchRequest request, BindingResult result, Model model){
         Object error = result.getAllErrors();
         List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
                 ,request.getDestination(),request.getDate());
         model.addAttribute("flights",response);
         return "flights";
+    }
+
+    @GetMapping("/page/find")
+    public String findFlightById(@RequestParam("id") long id,Model model){
+        Flight flight = flightService.findFlightById(id);
+        model.addAttribute("flight",flight);
+        return "book";
     }
 
 }
