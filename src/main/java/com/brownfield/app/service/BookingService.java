@@ -11,6 +11,8 @@ public interface BookingService {
 
     BookingRecord findBookingById(long id);
 
+    List<BookingRecord> findAllBookingByUser();
+
     List<BookingRecord> findAllBooking();
 
     void deleteBookingById(long id);

@@ -33,6 +33,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User findByEmail(String username) {
+        Optional<User> user=userRepository.findByEmail(username);
+        if(user.isEmpty()){
+            throw new UsernameNotFoundException(username);
+        }
+        return user.get();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
          Optional<User> user=userRepository.findByEmail(username);
          if(user.isEmpty()){

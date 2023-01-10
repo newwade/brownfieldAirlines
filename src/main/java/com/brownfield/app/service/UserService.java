@@ -7,4 +7,6 @@ public interface UserService {
 
     User saveUserService(UserRegRequest userDto);
 
+    User findByEmail(String username);
+
 }

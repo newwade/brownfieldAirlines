@@ -1,14 +1,13 @@
 package com.brownfield.app.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity(name = "users")
 @Getter
@@ -29,5 +28,8 @@ public class User {
     @Column(nullable = false,unique = true)
     private String phone;
     private String password;
-
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<BookingRecord> bookingRecords;
 }

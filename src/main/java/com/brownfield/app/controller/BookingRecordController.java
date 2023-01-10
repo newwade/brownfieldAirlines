@@ -24,6 +24,12 @@ public class BookingRecordController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<List<BookingRecord>> findAllBookingByUser(){
+        List<BookingRecord> response = bookingService.findAllBookingByUser();
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<BookingRecord> findBookingById(@PathVariable("id") long id){
         BookingRecord response = bookingService.findBookingById(id);
