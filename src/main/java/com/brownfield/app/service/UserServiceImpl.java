@@ -2,6 +2,7 @@ package com.brownfield.app.service;
 
 
 import com.brownfield.app.entity.User;
+import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.model.request.UserRegRequest;
 import com.brownfield.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setPhone(userDto.getPhone());
+        user.setEmailAddress(userDto.getEmail());
+        user.setMobileNumber(userDto.getPhone());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
-    public User findByEmail(String username) {
-        Optional<User> user=userRepository.findByEmail(username);
+    public User findById(long id) {
+        Optional<User> user=userRepository.findById(id);
+        if(user.isEmpty()){
+            throw new RecordNotFoundException("Record not found for user : " + id);
+        }
+        return user.get();
+    }
+
+    @Override
+    public User findByUserName(String username) {
+        Optional<User> user=userRepository.findByEmailAddress(username);
         if(user.isEmpty()){
             throw new UsernameNotFoundException(username);
         }
@@ -43,9 +53,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         Optional<User> user=userRepository.findByEmail(username);
+         Optional<User> user=userRepository.findByEmailAddress(username);
          if(user.isEmpty()){
              throw new UsernameNotFoundException(username);
          }
-        return new org.springframework.security.core.userdetails.User(user.get().getEmail(),user.get().getPassword(),new ArrayList<>());    }
+        return new org.springframework.security.core.userdetails.User(user.get().getEmailAddress(),user.get().getPassword(),new ArrayList<>());    }
 }

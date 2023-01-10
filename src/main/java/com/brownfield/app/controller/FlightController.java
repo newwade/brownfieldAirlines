@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +26,21 @@ public class FlightController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @GetMapping("/airline/{airlineName}")
+    @ResponseBody
+    public ResponseEntity<List<Flight>> findFlightByAirline(@PathVariable("airlineName") String  airlineName){
+
+        List<Flight> response = flightService.findFlightByAirline(airlineName);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/info/{flightNumber}")
+    @ResponseBody
+    public ResponseEntity<List<Flight>> findFlightByFlightNumber(@PathVariable("flightNumber") String  flightNumber){
+        List<Flight> response = flightService.findFlightByFlightNumber(flightNumber);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<Flight> saveFlight(@RequestBody Flight flight){
@@ -43,20 +56,28 @@ public class FlightController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @PostMapping("/page/find")
-    public String findFlightModel(@ModelAttribute("flight") FlightSearchRequest request, BindingResult result, Model model){
-        Object error = result.getAllErrors();
-        List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
-                ,request.getDestination(),request.getDate());
-        model.addAttribute("flights",response);
-        return "flights";
+    @DeleteMapping("/cancel/{id}")
+    public ResponseEntity<?> deleteFlightById(@PathVariable("id") long id){
+        flightService.deleteFlightById(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/page/find")
-    public String findFlightById(@RequestParam("id") long id,Model model){
-        Flight flight = flightService.findFlightById(id);
-        model.addAttribute("flight",flight);
-        return "book";
-    }
+
+
+//    @PostMapping("/page/find")
+//    public String findFlightModel(@ModelAttribute("flight") FlightSearchRequest request, BindingResult result, Model model){
+//        Object error = result.getAllErrors();
+//        List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
+//                ,request.getDestination(),request.getDate());
+//        model.addAttribute("flights",response);
+//        return "flights";
+//    }
+//
+//    @GetMapping("/page/find")
+//    public String findFlightById(@RequestParam("id") long id,Model model){
+//        Flight flight = flightService.findFlightById(id);
+//        model.addAttribute("flight",flight);
+//        return "book";
+//    }
 
 }

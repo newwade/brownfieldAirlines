@@ -30,10 +30,18 @@ const handleSubmit = async() =>{
     try {
         const fetchResponse = await fetch("http://localhost:8081/api/v1/book/save", settings);
         const data = await fetchResponse.json();
-        console.log(data);
-//        return data;
+        console.log(fetchResponse.status);
+        if(fetchResponse.status === 201){
+            if(data){
+                alert(data.status);
+                window.location.href ="/";
+            }
+        }
+        else{
+           throw new Error("Something went wrong. Please try again!")
+        }
     } catch (e) {
-        return e;
+        alert(e.message);
     }
 }
 

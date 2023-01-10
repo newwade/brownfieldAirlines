@@ -30,7 +30,7 @@ public class Flight {
     private LocalDate flightDate;
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime flightTime;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
     @JoinColumn(name = "flightInfoId")
     private FlightInfo flightInfo;
     @JoinColumn(name = "fareId")

@@ -24,9 +24,9 @@ public class User {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false,unique = true)
-    private String email;
+    private String emailAddress;
     @Column(nullable = false,unique = true)
-    private String phone;
+    private String mobileNumber;
     private String password;
     @OneToMany(mappedBy = "user",
             fetch = FetchType.LAZY,

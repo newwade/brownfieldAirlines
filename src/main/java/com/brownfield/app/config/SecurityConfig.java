@@ -45,6 +45,7 @@ public class SecurityConfig{
         http.headers().frameOptions().disable();
         http.authorizeHttpRequests((requests)-> requests.antMatchers("/api/v1/**")
                 .permitAll()
+                        .antMatchers("/swagger-ui/**").permitAll()
                         .antMatchers("/register").permitAll()
                         .antMatchers("/").permitAll()
                         .anyRequest().authenticated())
@@ -64,7 +65,9 @@ public class SecurityConfig{
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers("/resources/**","/h2-console/**");
+                .antMatchers("/resources/**","/h2-console/**","/v2/api-docs"
+                        ,"/configuration/ui", "/swagger-resources/**", "/configuration/**"
+                        ,"/swagger-ui.html", "/webjars/**");
     }
 
 //    @Bean

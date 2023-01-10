@@ -30,21 +30,19 @@ public class BookingServiceImpl implements BookingService{
     @Override
     @Transactional
     public BookingRecord saveBooking(BookingRequest bookingRequest) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userName = authentication.getName();
         BookingRecord bookingRecord = new BookingRecord();
-        if(!userName.equals("anonymousUser")){
-            User user = userService.findByEmail(userName);
-            bookingRecord.setUser(user);
-        }
         Flight flight = flightService.findFlightById(bookingRequest.getFlightId());
         bookingRecord.setFlightId(bookingRequest.getFlightId());
+        User user = userService.findById(bookingRequest.getUserId());
+        bookingRecord.setUser(user);
         bookingRecord.setPassengers(bookingRequest.getPassengers());
         bookingRecord.setOrigin(flight.getOrigin());
         bookingRecord.setDestination(flight.getDestination());
         bookingRecord.setFlightDate(flight.getFlightDate());
         bookingRecord.setFlightTime(flight.getFlightTime());
-        bookingRecord.setFare(flight.getFare().getFare());
+        bookingRecord.setFare(flight.getFare().getFare()*bookingRequest.getPassengers().size());
         bookingRecord.setSeatNumber((int) ((flight.getFlightInfo().getNumberOfSeats()+1)-flight.getInventory().getCount()));
         bookingRecord.setBookingDate(LocalDateTime.now());
         bookingRecord.setStatus("BOOKED");
@@ -71,10 +69,10 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public List<BookingRecord> findAllBookingByUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        User user = userService.findByEmail(userName);
+    public List<BookingRecord> findAllBookingByUser(long userId) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userName = authentication.getName();
+        User user = userService.findById(userId);
         List<BookingRecord> bookingRecords = bookingRepository.findByUserId(user.getId());
         return bookingRecords;
     }

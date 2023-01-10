@@ -7,13 +7,12 @@ import java.util.List;
 public interface FlightService {
 
     Flight saveFlight(Flight flight);
-
-    List<Flight> saveAllFlight(List<Flight> flights);
-
     Flight findFlightById(long id);
-
-    List<Flight> findAllFlight();
-
+    List<Flight> findFlightByAirline(String airlineName);
+    List<Flight> findFlightByFlightNumber(String flightNumber);
     List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date);
+    void deleteFlightById(long id);
+    List<Flight> saveAllFlight(List<Flight> flights);
+    List<Flight> findAllFlight();
 
 }
