@@ -15,8 +15,8 @@ public class CheckinController {
     @Autowired
     private PassengerService passengerService;
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Passenger> passengerCheckIn(@PathVariable("id") long passengerId){
+    @PutMapping("/{passengerId}")
+    public ResponseEntity<Passenger> passengerCheckIn(@PathVariable("passengerId") long passengerId){
         Passenger response = passengerService.updateCheckIn(passengerId);
         return new ResponseEntity(response,HttpStatus.OK);
     }

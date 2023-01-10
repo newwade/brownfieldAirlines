@@ -32,7 +32,7 @@ public class FlightServiceImpl implements FlightService{
     public Flight findFlightById(long id) {
         Optional<Flight> flight = flightRepository.findById(id);
         if(flight.isEmpty()){
-            throw new RecordNotFoundException("No record found for id : "+id);
+            throw new RecordNotFoundException("Record not found for flight : "+id);
         }
         return flight.get();
     }
@@ -65,7 +65,7 @@ public class FlightServiceImpl implements FlightService{
     public void deleteFlightById(long id) {
         Optional<Flight> flight = flightRepository.findById(id);
         if(flight.isEmpty()){
-            throw new RecordNotFoundException("No record found for id : "+id);
+            throw new RecordNotFoundException("Record not found for flight : "+id);
         }
         flightRepository.deleteById(id);
     }

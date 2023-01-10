@@ -63,7 +63,7 @@ public class BookingServiceImpl implements BookingService{
         List<BookingRecord> bookingRecords = bookingRepository.findByUserId(1L);
         Optional<BookingRecord> bookingRecord = bookingRepository.findById(id);
         if(bookingRecord.isEmpty()){
-            throw new RecordNotFoundException("No record found for id : "+id);
+            throw new RecordNotFoundException("Record not found for booking : "+id);
         }
         return bookingRecord.get();
     }
@@ -87,7 +87,7 @@ public class BookingServiceImpl implements BookingService{
     public void deleteBookingById(long id) {
         Optional<BookingRecord> bookingRecord = bookingRepository.findById(id);
         if(bookingRecord.isEmpty()){
-            throw new RecordNotFoundException("No record found for id : "+id);
+            throw new RecordNotFoundException("Record not found for booking : "+id);
         }
         bookingRepository.deleteById(id);
     }

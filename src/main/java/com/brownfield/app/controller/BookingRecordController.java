@@ -30,8 +30,8 @@ public class BookingRecordController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BookingRecord> findBookingById(@PathVariable("id") long id){
+    @GetMapping("/{bookingId}")
+    public ResponseEntity<BookingRecord> findBookingById(@PathVariable("bookingId") long id){
         BookingRecord response = bookingService.findBookingById(id);
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -42,8 +42,8 @@ public class BookingRecordController {
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/cancel/{id}")
-    public ResponseEntity<?> deleteBookingById(@PathVariable("id") long id){
+    @DeleteMapping("/cancel/{bookingId}")
+    public ResponseEntity<?> deleteBookingById(@PathVariable("bookingId") long id){
         bookingService.deleteBookingById(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

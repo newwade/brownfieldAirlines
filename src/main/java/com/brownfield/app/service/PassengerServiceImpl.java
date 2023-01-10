@@ -25,7 +25,7 @@ public class PassengerServiceImpl implements PassengerService {
     public Passenger findPassengerById(long id) {
         Optional<Passenger> passenger = passengerRepository.findById(id);
         if(passenger.isEmpty()){
-            throw new RecordNotFoundException("No record found for id : "+id);
+            throw new RecordNotFoundException("No record found for passenger : "+id);
         }
         return passenger.get();
     }

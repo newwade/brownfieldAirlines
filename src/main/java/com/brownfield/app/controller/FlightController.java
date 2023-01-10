@@ -18,9 +18,9 @@ public class FlightController {
     @Autowired
     private FlightService flightService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{flightId}")
     @ResponseBody
-    public ResponseEntity<Flight> findFlightById(@PathVariable("id") long id){
+    public ResponseEntity<Flight> findFlightById(@PathVariable("flightId") long id){
 
         Flight response = flightService.findFlightById(id);
         return new ResponseEntity(response, HttpStatus.OK);
@@ -56,8 +56,8 @@ public class FlightController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/cancel/{id}")
-    public ResponseEntity<?> deleteFlightById(@PathVariable("id") long id){
+    @DeleteMapping("/cancel/{flightId}")
+    public ResponseEntity<?> deleteFlightById(@PathVariable("flightId") long id){
         flightService.deleteFlightById(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
