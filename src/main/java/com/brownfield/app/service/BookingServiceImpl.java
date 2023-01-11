@@ -89,6 +89,9 @@ public class BookingServiceImpl implements BookingService{
         if(bookingRecord.isEmpty()){
             throw new RecordNotFoundException("Record not found for booking : "+id);
         }
+        Flight flight = flightService.findFlightById(bookingRecord.get().getFlightId());
         bookingRepository.deleteById(id);
+        flight.getInventory().setCount(flight.getInventory().getCount()+bookingRecord.get().getPassengers().size());
+        flightService.saveFlight(flight);
     }
 }

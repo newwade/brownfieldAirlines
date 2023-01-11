@@ -27,7 +27,6 @@ public class SecurityConfig{
 
     @Autowired
     private UserServiceImpl userService;
-
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -43,8 +42,8 @@ public class SecurityConfig{
         http.cors().disable();
         http.csrf().disable();
         http.headers().frameOptions().disable();
-        http.authorizeHttpRequests((requests)-> requests.antMatchers("/api/v1/**")
-                .permitAll()
+        http.authorizeHttpRequests((requests)->
+                        requests.antMatchers("/api/v1/**").permitAll()
                         .antMatchers("/swagger-ui/**").permitAll()
                         .antMatchers("/register").permitAll()
                         .antMatchers("/").permitAll()

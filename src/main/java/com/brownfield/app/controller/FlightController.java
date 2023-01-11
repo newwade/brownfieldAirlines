@@ -1,5 +1,6 @@
 package com.brownfield.app.controller;
 
+import com.brownfield.app.entity.BookingRecord;
 import com.brownfield.app.entity.Flight;
 import com.brownfield.app.model.request.FlightSearchRequest;
 import com.brownfield.app.service.FlightService;
@@ -17,6 +18,12 @@ public class FlightController {
 
     @Autowired
     private FlightService flightService;
+
+    @GetMapping("/")
+    public ResponseEntity<List<BookingRecord>> findAllFlight(){
+        List<Flight> response = flightService.findAllFlight();
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
 
     @GetMapping("/{flightId}")
     @ResponseBody
