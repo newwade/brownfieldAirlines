@@ -59,7 +59,7 @@ public class FlightController {
     @ResponseBody
     public ResponseEntity<List<Flight>> findFlightByOriginDestinationDate(@RequestBody FlightSearchRequest request){
         List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
-                ,request.getDestination(),request.getDate());
+                ,request.getDestination(),request.getDate(),request.getPassengers());
         return new ResponseEntity(response, HttpStatus.OK);
     }
 

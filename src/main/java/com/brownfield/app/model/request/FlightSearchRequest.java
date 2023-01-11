@@ -19,4 +19,5 @@ public class FlightSearchRequest {
     private String destination;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
+    private Integer Passengers;
 }

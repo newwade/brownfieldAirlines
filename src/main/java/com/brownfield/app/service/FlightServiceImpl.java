@@ -53,10 +53,10 @@ public class FlightServiceImpl implements FlightService{
     }
 
     @Override
-    public List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date) {
+    public List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date,Integer passengers) {
         List<Flight> flights = flightRepository.findByOriginAndDestinationAndFlightDateOrderByFlightTimeAsc(origin,destination,date);
         List<Flight> searchResults = flights.stream().filter(flight -> {
-            return flight.getInventory().getCount()>0;
+            return flight.getInventory().getCount()>=passengers;
         }).collect(Collectors.toList());
         return searchResults;
     }

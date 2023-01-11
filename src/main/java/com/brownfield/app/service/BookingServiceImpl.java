@@ -43,7 +43,6 @@ public class BookingServiceImpl implements BookingService{
         bookingRecord.setFlightDate(flight.getFlightDate());
         bookingRecord.setFlightTime(flight.getFlightTime());
         bookingRecord.setFare(flight.getFare().getFare()*bookingRequest.getPassengers().size());
-        bookingRecord.setSeatNumber((int) ((flight.getFlightInfo().getNumberOfSeats()+1)-flight.getInventory().getCount()));
         bookingRecord.setBookingDate(LocalDateTime.now());
         bookingRecord.setStatus("BOOKED");
         BookingRecord bookingRecordDb = bookingRepository.save(bookingRecord);

@@ -23,6 +23,7 @@ public class Checkin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long checkinId;
+    private Integer seatNumber;
     private Integer gateNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateTime;

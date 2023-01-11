@@ -10,7 +10,7 @@ public interface FlightService {
     Flight findFlightById(long id);
     List<Flight> findFlightByAirline(String airlineName);
     List<Flight> findFlightByFlightNumber(String flightNumber);
-    List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date);
+    List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date,Integer passengers);
     void deleteFlightById(long id);
     List<Flight> saveAllFlight(List<Flight> flights);
     List<Flight> findAllFlight();

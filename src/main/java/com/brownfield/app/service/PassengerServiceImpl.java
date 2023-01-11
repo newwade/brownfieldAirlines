@@ -1,6 +1,7 @@
 package com.brownfield.app.service;
 
 import com.brownfield.app.entity.Checkin;
+import com.brownfield.app.entity.Flight;
 import com.brownfield.app.entity.Passenger;
 import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.repository.PassengerRepository;
@@ -35,6 +36,7 @@ public class PassengerServiceImpl implements PassengerService {
         Passenger passenger = findPassengerById(passengerId);
         Checkin checkin = new Checkin();
         checkin.setDateTime(LocalDateTime.now());
+        checkin.setSeatNumber((int) passengerId);
         checkin.setGateNumber(new Random().nextInt(4 - 1 + 1) + 1);
         passenger.setCheckin(checkin);
         return passengerRepository.save(passenger);

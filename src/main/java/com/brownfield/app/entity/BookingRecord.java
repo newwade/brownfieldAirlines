@@ -31,7 +31,6 @@ public class BookingRecord {
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime flightTime;
     private double fare;
-    private Integer seatNumber;
     private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime bookingDate;
