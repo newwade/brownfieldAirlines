@@ -45,8 +45,7 @@ public class BookingRecordController {
     @DeleteMapping("/cancel/{bookingId}")
     public ResponseEntity<?> deleteBookingById(@PathVariable("bookingId") long id){
         bookingService.deleteBookingById(id);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity("Entity Deleted", HttpStatus.OK);
     }
-
 
 }
