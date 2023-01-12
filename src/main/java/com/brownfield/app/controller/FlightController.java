@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -50,14 +50,14 @@ public class FlightController {
 
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<Flight> saveFlight(@RequestBody Flight flight){
+    public ResponseEntity<Flight> saveFlight(@RequestBody @Valid Flight flight){
         Flight response = flightService.saveFlight(flight);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/find")
     @ResponseBody
-    public ResponseEntity<List<Flight>> findFlightByOriginDestinationDate(@RequestBody FlightSearchRequest request){
+    public ResponseEntity<List<Flight>> findFlightByOriginDestinationDate(@RequestBody @Valid FlightSearchRequest request){
         List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
                 ,request.getDestination(),request.getDate(),request.getPassengers());
         return new ResponseEntity(response, HttpStatus.OK);

@@ -9,6 +9,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +28,13 @@ public class FlightInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long flightInfoId;
+    @NotBlank(message = "flightnumber cannot be empty")
     private String flightNumber;
+    @NotBlank(message = "flighttype cannot be empty")
     private String flightType;
-    private int numberOfSeats;
+    @NotNull
+    private Integer numberOfSeats;
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "flightAirlineInfo", joinColumns = {
             @JoinColumn(name = "flightInfoId", referencedColumnName = "flightInfoId") }, inverseJoinColumns = {

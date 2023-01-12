@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="airlineInfo")
@@ -21,7 +23,9 @@ public class AirlineInfo {
     @Id
     @GeneratedValue
     private long airlineId;
+    @NotBlank
     private String airlineLogo;
+    @NotBlank
     private String nameOfAirline;
 
 }
