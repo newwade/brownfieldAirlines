@@ -1,7 +1,6 @@
 const btn_submit = document.querySelector(".btn-book")
 const passenger_form = document.querySelectorAll(".passenger_form")
 const trip_summary = document.querySelector(".trip_summary")
-
 const handleSubmit = async() =>{
     const id = trip_summary.getAttribute("data-flight-id")
     const request ={
