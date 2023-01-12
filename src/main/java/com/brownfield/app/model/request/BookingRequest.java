@@ -1,6 +1,7 @@
 package com.brownfield.app.model.request;
 
 import com.brownfield.app.entity.Passenger;
+import com.brownfield.app.entity.Payment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @NoArgsConstructor
@@ -23,5 +25,6 @@ public class BookingRequest {
 //    private String username;
     @NotEmpty(message = "passengers cannot be empty")
     List<Passenger> passengers;
-
+    @NotNull
+    private Payment payment;
 }

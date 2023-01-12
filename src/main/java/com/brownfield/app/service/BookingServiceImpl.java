@@ -34,17 +34,20 @@ public class BookingServiceImpl implements BookingService{
 //        String userName = authentication.getName();
         BookingRecord bookingRecord = new BookingRecord();
         Flight flight = flightService.findFlightById(bookingRequest.getFlightId());
-        bookingRecord.setFlightId(bookingRequest.getFlightId());
         User user = userService.findById(bookingRequest.getUserId());
+        bookingRecord.setFlightId(bookingRequest.getFlightId());
+        long pnr = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        bookingRecord.setPnrNumber(pnr);
         bookingRecord.setUser(user);
         bookingRecord.setPassengers(bookingRequest.getPassengers());
         bookingRecord.setOrigin(flight.getOrigin());
         bookingRecord.setDestination(flight.getDestination());
         bookingRecord.setFlightDate(flight.getFlightDate());
-        bookingRecord.setFlightTime(flight.getFlightTime());
+        bookingRecord.setDepartureTime(flight.getDepartureTime());
+        bookingRecord.setArrivalTime(flight.getArrivalTime());
         bookingRecord.setFare(flight.getFare().getFare()*bookingRequest.getPassengers().size());
         bookingRecord.setBookingDate(LocalDateTime.now());
-        bookingRecord.setStatus("BOOKED");
+        bookingRecord.setPayment(bookingRequest.getPayment());
         BookingRecord bookingRecordDb = bookingRepository.save(bookingRecord);
         for(Passenger passenger : bookingRecordDb.getPassengers()){
             passenger.setBookingRecord(bookingRecord);
@@ -54,8 +57,6 @@ public class BookingServiceImpl implements BookingService{
         flightService.saveFlight(flight);
         return bookingRecordDb;
     }
-
-
 
     @Override
     public BookingRecord findBookingById(long id) {
@@ -78,7 +79,6 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<BookingRecord> findAllBooking() {
-
         return bookingRepository.findAll();
     }
 

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface FlightService {
-
     Flight saveFlight(Flight flight);
     Flight findFlightById(long id);
     List<Flight> findFlightByAirline(String airlineName);

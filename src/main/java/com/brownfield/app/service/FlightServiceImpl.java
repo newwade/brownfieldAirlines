@@ -1,13 +1,12 @@
 package com.brownfield.app.service;
 
-import com.brownfield.app.entity.BookingRecord;
 import com.brownfield.app.entity.Flight;
 import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +19,9 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public Flight saveFlight(Flight flight) {
+        LocalTime arrivalTime = flight.getDepartureTime().plusHours(flight.getFlightDuration().getHour()
+        ).plusMinutes(flight.getFlightDuration().getMinute()).plusSeconds(flight.getFlightDuration().getSecond());
+        flight.setArrivalTime(arrivalTime);
         return flightRepository.save(flight);
     }
 
@@ -39,12 +41,12 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public List<Flight> findFlightByAirline(String airlineName) {
-        return flightRepository.findByFlightInfoAirlineInfoNameOfAirlineOrderByFlightTimeAsc(airlineName);
+        return flightRepository.findByFlightInfoAirlineInfoNameOfAirlineOrderByDepartureTimeAsc(airlineName);
     }
 
     @Override
     public List<Flight> findFlightByFlightNumber(String flightNumber) {
-        return flightRepository.findByFlightInfoFlightNumberOrderByFlightTimeAsc(flightNumber);
+        return flightRepository.findByFlightInfoFlightNumberOrderByDepartureTimeAsc(flightNumber);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public List<Flight> findByOriginDestinationDateService(String origin, String destination, LocalDate date,Integer passengers) {
-        List<Flight> flights = flightRepository.findByOriginAndDestinationAndFlightDateOrderByFlightTimeAsc(origin,destination,date);
+        List<Flight> flights = flightRepository.findByOriginAndDestinationAndFlightDateOrderByDepartureTimeAsc(origin,destination,date);
         List<Flight> searchResults = flights.stream().filter(flight -> {
             return flight.getInventory().getCount()>=passengers;
         }).collect(Collectors.toList());

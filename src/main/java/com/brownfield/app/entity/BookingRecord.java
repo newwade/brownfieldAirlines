@@ -24,18 +24,23 @@ public class BookingRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bookingId;
     private long flightId;
+    private long pnrNumber;
     private String origin;
     private String destination;
+    private double fare;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
     @DateTimeFormat(pattern="HH:mm:ss")
-    private LocalTime flightTime;
-    private double fare;
-    private String status;
+    private LocalTime departureTime;
+    @DateTimeFormat(pattern="HH:mm:ss")
+    private LocalTime arrivalTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime bookingDate;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "paymentId")
+    private Payment payment;
     @OneToMany(mappedBy = "bookingRecord",
-            orphanRemoval = true,
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Passenger> passengers;

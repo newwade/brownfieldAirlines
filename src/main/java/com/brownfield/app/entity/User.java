@@ -2,6 +2,7 @@ package com.brownfield.app.entity;
 
 import javax.persistence.*;
 
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class User {
     private String emailAddress;
     @Column(nullable = false,unique = true)
     private String mobileNumber;
+    @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "user",
             fetch = FetchType.LAZY,

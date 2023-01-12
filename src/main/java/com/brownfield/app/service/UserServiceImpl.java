@@ -2,6 +2,7 @@ package com.brownfield.app.service;
 
 
 import com.brownfield.app.entity.User;
+import com.brownfield.app.exception.BadRequestException;
 import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.model.request.UserRegRequest;
 import com.brownfield.app.repository.UserRepository;
@@ -25,6 +26,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User saveUserService(UserRegRequest userDto) {
         User user = new User();
+        Optional<User> user_db1 =userRepository.findByEmailAddress(userDto.getEmail());
+        if(user_db1.isPresent()) {
+            throw new BadRequestException("username or email already exists");
+        }
+        Optional<User> user_db2 =userRepository.findByMobileNumber(userDto.getPhone());
+        if(user_db2.isPresent()) {
+            throw new BadRequestException("invalid phone");
+        }
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmailAddress(userDto.getEmail());

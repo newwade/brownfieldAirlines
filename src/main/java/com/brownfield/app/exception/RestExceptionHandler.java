@@ -20,4 +20,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(apiError,HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    protected ResponseEntity<Object> handleBadRequest(BadRequestException exception){
+        ApiError apiError = new ApiError();
+        apiError.setStatus(HttpStatus.BAD_REQUEST);
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setMessage(exception.getMessage());
+        return new ResponseEntity(apiError,HttpStatus.BAD_REQUEST);
+    }
+
 }
