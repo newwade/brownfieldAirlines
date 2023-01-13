@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "flightInfo")
@@ -33,8 +36,10 @@ public class FlightInfo {
     @NotBlank(message = "flighttype cannot be empty")
     private String flightType;
     @NotNull
+    @Min(value = 10)
     private Integer numberOfSeats;
     @NotNull
+    @Valid
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "flightAirlineInfo", joinColumns = {
             @JoinColumn(name = "flightInfoId", referencedColumnName = "flightInfoId") }, inverseJoinColumns = {

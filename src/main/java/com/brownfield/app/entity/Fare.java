@@ -1,6 +1,7 @@
 package com.brownfield.app.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -20,9 +21,9 @@ public class Fare {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long fareId;
-    @NotBlank
+    @NotBlank(message = "currency cannot be empty")
     private String currency;
-    @NotNull
+    @DecimalMin(value = "1.0", message = "Please Enter a valid Deposit Amount")
     private double fare;
 
 }

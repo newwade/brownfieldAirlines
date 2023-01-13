@@ -18,7 +18,7 @@ public class BookingRecordController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<BookingRecord>> findAllBooking(){
         List<BookingRecord> response = bookingService.findAllBooking();
         return new ResponseEntity(response, HttpStatus.OK);

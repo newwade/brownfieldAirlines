@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "bookingRecord")

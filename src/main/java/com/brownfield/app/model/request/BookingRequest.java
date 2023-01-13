@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BookingRequest {
+
     @Min(value = 1,message = "invalid flight id")
     private long flightId;
     @Min(value = 1,message = "invalid user id")
@@ -24,7 +26,9 @@ public class BookingRequest {
 //    @NotEmpty(message="user cannot be empty")
 //    private String username;
     @NotEmpty(message = "passengers cannot be empty")
+    @Valid
     List<Passenger> passengers;
     @NotNull
+    @Valid
     private Payment payment;
 }

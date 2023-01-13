@@ -19,7 +19,7 @@ public class FlightController {
     @Autowired
     private FlightService flightService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<BookingRecord>> findAllFlight(){
         List<Flight> response = flightService.findAllFlight();
         return new ResponseEntity(response, HttpStatus.OK);
@@ -58,8 +58,7 @@ public class FlightController {
     @PostMapping("/find")
     @ResponseBody
     public ResponseEntity<List<Flight>> findFlightByOriginDestinationDate(@RequestBody @Valid FlightSearchRequest request){
-        List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
-                ,request.getDestination(),request.getDate(),request.getPassengers());
+        List<Flight> response = flightService.findByOriginDestinationDateService(request);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 

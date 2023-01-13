@@ -3,6 +3,8 @@ package com.brownfield.app.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -26,9 +28,9 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotEmpty(message = "flight origin cannot be empty")
+    @NotBlank(message = "flight origin cannot be empty")
     private String origin;
-    @NotEmpty(message = "flight destination cannot be empty")
+    @NotBlank(message = "flight destination cannot be empty")
     private String destination;
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -36,20 +38,23 @@ public class Flight {
     @NotNull
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime departureTime;
-    @NotNull
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime arrivalTime;
     @NotNull
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime flightDuration;
     @NotNull
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "flightInfoId")
     private FlightInfo flightInfo;
+    @NotNull
+    @Valid
     @JoinColumn(name = "fareId")
     @OneToOne(cascade = CascadeType.ALL)
     private Fare fare;
     @NotNull
+    @Valid
     @JoinColumn(name = "inventoryId")
     @OneToOne(cascade = CascadeType.ALL)
     private Inventory inventory;

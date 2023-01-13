@@ -26,18 +26,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User saveUserService(UserRegRequest userDto) {
         User user = new User();
-        Optional<User> user_db1 =userRepository.findByEmailAddress(userDto.getEmail());
+        Optional<User> user_db1 =userRepository.findByEmailAddress(userDto.getEmailAddress());
         if(user_db1.isPresent()) {
             throw new BadRequestException("username or email already exists");
         }
-        Optional<User> user_db2 =userRepository.findByMobileNumber(userDto.getPhone());
+        Optional<User> user_db2 =userRepository.findByMobileNumber(userDto.getMobileNumber());
         if(user_db2.isPresent()) {
             throw new BadRequestException("invalid phone");
         }
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setEmailAddress(userDto.getEmail());
-        user.setMobileNumber(userDto.getPhone());
+        user.setEmailAddress(userDto.getEmailAddress());
+        user.setMobileNumber(userDto.getMobileNumber());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(user);
     }

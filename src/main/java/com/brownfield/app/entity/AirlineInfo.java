@@ -23,9 +23,9 @@ public class AirlineInfo {
     @Id
     @GeneratedValue
     private long airlineId;
-    @NotBlank
+    @NotBlank(message = "airline logo cannot be empty")
     private String airlineLogo;
-    @NotBlank
+    @NotBlank(message = "airline name cannot be empty")
     private String nameOfAirline;
 
 }

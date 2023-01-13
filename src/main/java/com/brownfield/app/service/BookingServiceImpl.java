@@ -54,7 +54,7 @@ public class BookingServiceImpl implements BookingService{
             passengerService.savePassenger(passenger);
         }
         flight.getInventory().setCount(flight.getInventory().getCount()-bookingRecord.getPassengers().size());
-        flightService.saveFlight(flight);
+        flightService.updateFlight(flight);
         return bookingRecordDb;
     }
 
@@ -91,6 +91,6 @@ public class BookingServiceImpl implements BookingService{
         Flight flight = flightService.findFlightById(bookingRecord.get().getFlightId());
         bookingRepository.deleteById(id);
         flight.getInventory().setCount(flight.getInventory().getCount()+bookingRecord.get().getPassengers().size());
-        flightService.saveFlight(flight);
+        flightService.updateFlight(flight);
     }
 }
