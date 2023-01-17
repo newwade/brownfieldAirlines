@@ -27,21 +27,9 @@ public class FareController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Fare> saveFare(@RequestBody Fare fareRequest){
-        Fare response = fareService.saveFare(fareRequest);
-        return new ResponseEntity(response, HttpStatus.CREATED);
-    }
-
     @PutMapping("/update")
     public ResponseEntity<Fare> updateFare(@RequestBody Fare fare){
         Fare response = fareService.updateFare(fare);
         return new ResponseEntity(response, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/remove")
-    public ResponseEntity<String> deleteFare(@RequestParam long id){
-        fareService.deleteFareById(id);
-        return new ResponseEntity("Entity Deleted", HttpStatus.OK);
     }
 }

@@ -16,9 +16,6 @@ public class FareServiceImpl implements FareService {
     @Autowired
     private FareRepository fareRepository;
 
-    @Autowired
-    private FlightService flightService;
-
     @Override
     @Transactional
     public Fare saveFare(Fare fare) {
@@ -35,7 +32,6 @@ public class FareServiceImpl implements FareService {
         if(fare.getFare() !=0){
             fare_db.setFare(fare.getFare());
         }
-
         return fareRepository.save(fare_db);
     }
 
@@ -53,12 +49,4 @@ public class FareServiceImpl implements FareService {
         return fareRepository.findByFlightId(flightId);
     }
 
-    @Override
-    public void deleteFareById(long id) {
-        Fare fare = findFareByID(id);
-        Flight flight = fare.getFlight();
-        flight.setFare(null);
-        fareRepository.deleteById(id);
-        flightService.updateFlight(flight);
-    }
 }

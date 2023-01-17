@@ -18,7 +18,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long paymentId;
     @NotBlank(message = "cardName cannot be empty")
     @Column(nullable = false)

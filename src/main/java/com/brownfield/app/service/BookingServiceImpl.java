@@ -60,7 +60,6 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public BookingRecord findBookingById(long id) {
-        List<BookingRecord> bookingRecords = bookingRepository.findByUserId(1L);
         Optional<BookingRecord> bookingRecord = bookingRepository.findById(id);
         if(bookingRecord.isEmpty()){
             throw new RecordNotFoundException("Record not found for booking : "+id);

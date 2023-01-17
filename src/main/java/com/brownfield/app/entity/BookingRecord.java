@@ -1,6 +1,7 @@
 package com.brownfield.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class BookingRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long bookingId;
     private long flightId;
     private long pnrNumber;
@@ -40,6 +41,7 @@ public class BookingRecord {
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @JoinColumn(name = "paymentId")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Payment payment;
     @OneToMany(mappedBy = "bookingRecord",
             fetch = FetchType.LAZY,

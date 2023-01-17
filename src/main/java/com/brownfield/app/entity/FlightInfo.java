@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.Length;
 public class FlightInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long flightInfoId;
     @NotBlank(message = "flightnumber cannot be empty")
     private String flightNumber;

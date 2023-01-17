@@ -7,5 +7,4 @@ public interface FareService {
     Fare updateFare(Fare fare);
     Fare findFareByID(long id);
     Fare findFareByFlightId(long flightId);
-    void deleteFareById(long id);
 }

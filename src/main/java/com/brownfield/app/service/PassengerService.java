@@ -5,5 +5,4 @@ import com.brownfield.app.entity.Passenger;
 public interface PassengerService {
     Passenger savePassenger(Passenger passenger);
     Passenger findPassengerById(long id);
-    Passenger updateCheckIn(long passengerId);
 }

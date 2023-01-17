@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Fare {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long fareId;
     @NotBlank(message = "currency cannot be empty")
     private String currency;

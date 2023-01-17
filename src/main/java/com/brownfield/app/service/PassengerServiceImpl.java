@@ -31,14 +31,4 @@ public class PassengerServiceImpl implements PassengerService {
         return passenger.get();
     }
 
-    @Override
-    public Passenger updateCheckIn(long passengerId) {
-        Passenger passenger = findPassengerById(passengerId);
-        Checkin checkin = new Checkin();
-        checkin.setDateTime(LocalDateTime.now());
-        checkin.setSeatNumber((int) passengerId);
-        checkin.setGateNumber(new Random().nextInt(4 - 1 + 1) + 1);
-        passenger.setCheckin(checkin);
-        return passengerRepository.save(passenger);
-    }
 }

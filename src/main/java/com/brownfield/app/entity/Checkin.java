@@ -1,16 +1,13 @@
 package com.brownfield.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,10 +18,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Checkin {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long checkinId;
-    private Integer seatNumber;
+    @NotNull(message = "Baggage Checking Status is mandatory")
+    @Column(name = "Bag_Check")
+    private boolean baggage_checking_status;
+    @NotNull(message = "Security Checking Status  is mandatory")
+    @Column(name = "Security_Check")
+    private boolean security_checking_status;
+    @NotNull(message = "Immigration Status is mandatory")
+    @Column(name = "Immigration_Check")
+    private boolean immigration_status;
+    @NotNull
     private Integer gateNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateTime;
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "checkin")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Passenger passenger;
 }

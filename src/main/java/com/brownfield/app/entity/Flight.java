@@ -26,7 +26,7 @@ import java.time.LocalTime;
 public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     @NotBlank(message = "flight origin cannot be empty")
     private String origin;

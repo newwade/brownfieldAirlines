@@ -22,6 +22,7 @@ public class FlightServiceImpl implements FlightService{
     @Autowired
     private FlightRepository flightRepository;
 
+
     @Override
     public Flight saveFlight(Flight flight) {
         flight.setOrigin(StringUtils.trimAllWhitespace(flight.getOrigin()));
