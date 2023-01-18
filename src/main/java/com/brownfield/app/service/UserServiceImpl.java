@@ -4,9 +4,12 @@ package com.brownfield.app.service;
 import com.brownfield.app.entity.User;
 import com.brownfield.app.exception.BadRequestException;
 import com.brownfield.app.exception.RecordNotFoundException;
+import com.brownfield.app.model.request.LoginRequest;
 import com.brownfield.app.model.request.UserRegRequest;
+import com.brownfield.app.model.response.LoginResponse;
 import com.brownfield.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +43,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setMobileNumber(userDto.getMobileNumber());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userRepository.save(user);
+    }
+
+    @Override
+    public LoginResponse loginUser(LoginRequest loginRequest) {
+        Optional<User> user=userRepository.findByEmailAddress(loginRequest.getUsername());
+        if(user.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(),user.get().getPassword())){
+            throw new BadRequestException("invalid username or password");
+        }
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setFirstName(user.get().getFirstName());
+        loginResponse.setLastName(user.get().getLastName());
+        loginResponse.setMobileNumber(user.get().getMobileNumber());
+        loginResponse.setEmailAddress(user.get().getEmailAddress());
+        return loginResponse;
     }
 
     @Override

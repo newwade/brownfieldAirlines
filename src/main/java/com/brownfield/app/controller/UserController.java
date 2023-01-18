@@ -1,7 +1,9 @@
 package com.brownfield.app.controller;
 
 import com.brownfield.app.entity.User;
+import com.brownfield.app.model.request.LoginRequest;
 import com.brownfield.app.model.request.UserRegRequest;
+import com.brownfield.app.model.response.LoginResponse;
 import com.brownfield.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,13 @@ public class UserController {
     public ResponseEntity registerUser( @RequestBody @Valid UserRegRequest userDto){
         User response = userService.saveUserService(userDto);
         return new ResponseEntity(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity loginUser( @RequestBody @Valid LoginRequest userDto){
+        LoginResponse response = userService.loginUser(userDto);
+        return new ResponseEntity(response, HttpStatus.OK);
+
     }
 
 //    @PostMapping("/register")
