@@ -35,8 +35,8 @@ public class BookingServiceImpl implements BookingService{
         BookingRecord bookingRecord = new BookingRecord();
         Flight flight = flightService.findFlightById(bookingRequest.getFlightId());
         User user = userService.findById(bookingRequest.getUserId());
-        bookingRecord.setFlightId(bookingRequest.getFlightId());
         long pnr = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        bookingRecord.setFlightId(bookingRequest.getFlightId());
         bookingRecord.setPnrNumber(pnr);
         bookingRecord.setUser(user);
         bookingRecord.setPassengers(bookingRequest.getPassengers());
