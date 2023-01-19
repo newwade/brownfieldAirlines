@@ -26,9 +26,9 @@ public class BookingRecord {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long bookingId;
     private long flightId;
-    private long pnrNumber;
     private String origin;
     private String destination;
+    private long pnrNumber;
     private double fare;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;

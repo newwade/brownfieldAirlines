@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new BadRequestException("invalid username or password");
         }
         LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setId(user.get().getId());
         loginResponse.setFirstName(user.get().getFirstName());
         loginResponse.setLastName(user.get().getLastName());
         loginResponse.setMobileNumber(user.get().getMobileNumber());
