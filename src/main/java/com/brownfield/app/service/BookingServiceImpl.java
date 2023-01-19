@@ -49,9 +49,12 @@ public class BookingServiceImpl implements BookingService{
         bookingRecord.setBookingDate(LocalDateTime.now());
         bookingRecord.setPayment(bookingRequest.getPayment());
         BookingRecord bookingRecordDb = bookingRepository.save(bookingRecord);
+        int passenger_count =1;
         for(Passenger passenger : bookingRecordDb.getPassengers()){
             passenger.setBookingRecord(bookingRecord);
+            passenger.setSeatNumber(flight.getFlightInfo().getNumberOfSeats() - (flight.getInventory().getCount()-passenger_count));
             passengerService.savePassenger(passenger);
+            passenger_count++;
         }
         flight.getInventory().setCount(flight.getInventory().getCount()-bookingRecord.getPassengers().size());
         flightService.updateFlight(flight);

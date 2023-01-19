@@ -45,6 +45,7 @@ public class Passenger {
     @NotBlank(message = "phone cannot be empty")
     @Pattern(regexp = GenericConstant.PHONEREGEXP,message = "invalid phone")
     private String mobileNumber;
+    private long seatNumber;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookingId")
     @JsonIgnore
