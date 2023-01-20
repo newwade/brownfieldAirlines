@@ -62,6 +62,7 @@ public class FlightController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/cancel/{flightId}")
     public ResponseEntity<String> deleteFlightById(@PathVariable("flightId") long id){
         flightService.deleteFlightById(id);

@@ -29,10 +29,11 @@ public class Checkin {
     @NotNull(message = "Immigration Status is mandatory")
     @Column(name = "Immigration_Check")
     private boolean immigration_status;
-    @NotNull
+    @NotNull(message = "invalid gate number")
     private Integer gateNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateTime;
+    @NotNull(message = "passenger id cannot be empty")
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "checkin")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Passenger passenger;

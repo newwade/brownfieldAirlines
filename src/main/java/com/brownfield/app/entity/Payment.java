@@ -20,16 +20,16 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long paymentId;
-    @NotBlank(message = "cardName cannot be empty")
+    @NotBlank(message = "card holder name cannot be empty")
     @Column(nullable = false)
     private String cardholderName;
-    @NotBlank(message = "cardNumber cannot be empty")
+    @NotBlank(message = "card number cannot be empty")
     @Size(min = 16,max=16,message = "invalid card")
     @Column(nullable = false)
     private String cardNumber;
     @NotNull(message = "card verification value cannot be empty")
-    @DecimalMin("100")
-    @DecimalMax("999")
+    @DecimalMin(value = "100",message = "invalid card")
+    @DecimalMax(value = "999",message = "invalid card")
     @Column(nullable = false)
     private Integer cvc;
 }

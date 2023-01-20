@@ -40,9 +40,9 @@ public class Passenger {
     @NotBlank(message = "gender cannot be empty")
     private String gender;
     @NotBlank(message = "email cannot be empty")
-    @Email(message = "invalid email",regexp = GenericConstant.EMAILREGEXP)
+    @Email(regexp = GenericConstant.EMAILREGEXP,message = "invalid email")
     private String emailAddress;
-    @NotBlank(message = "phone cannot be empty")
+    @NotBlank(message = "mobile number cannot be empty")
     @Pattern(regexp = GenericConstant.PHONEREGEXP,message = "invalid phone")
     private String mobileNumber;
     private long seatNumber;

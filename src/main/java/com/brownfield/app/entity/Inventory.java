@@ -19,6 +19,6 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long inventoryId;
-    @NotNull
+    @NotNull(message = "invalid inventory count")
     private Integer count;
 }

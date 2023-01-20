@@ -23,12 +23,10 @@ public class BookingRequest {
     private long flightId;
     @Min(value = 1,message = "invalid user id")
     private long userId;
-//    @NotEmpty(message="user cannot be empty")
-//    private String username;
     @NotEmpty(message = "passengers cannot be empty")
     @Valid
     List<Passenger> passengers;
-    @NotNull
+    @NotNull(message = "invalid payment")
     @Valid
     private Payment payment;
 }

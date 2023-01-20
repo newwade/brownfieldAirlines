@@ -22,9 +22,9 @@ public class Fare {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long fareId;
-    @NotBlank(message = "currency cannot be empty")
+    @NotBlank(message = "invalid currency")
     private String currency;
-    @DecimalMin(value = "1.0", message = "Please Enter a valid Deposit Amount")
+    @DecimalMin(value = "1.0", message = "invalid amount")
     private double fare;
     @OneToOne(mappedBy ="fare")
     @JsonIgnore

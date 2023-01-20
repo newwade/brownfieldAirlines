@@ -32,28 +32,28 @@ public class Flight {
     private String origin;
     @NotBlank(message = "flight destination cannot be empty")
     private String destination;
-    @NotNull
+    @NotNull(message = "invalid flight date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate flightDate;
-    @NotNull
+    @NotNull(message = "invalid departure time")
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime departureTime;
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime arrivalTime;
-    @NotNull
+    @NotNull(message = "invalid flight duration")
     @DateTimeFormat(pattern="HH:mm:ss")
     private LocalTime flightDuration;
-    @NotNull
+    @NotNull(message = "invalid flight info")
     @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "flightInfoId")
     private FlightInfo flightInfo;
-    @NotNull
+    @NotNull(message = "invalid fare")
     @Valid
     @JoinColumn(name = "fareId")
     @OneToOne(cascade = CascadeType.ALL)
     private Fare fare;
-    @NotNull
+    @NotNull(message = "invalid inventory")
     @Valid
     @JoinColumn(name = "inventoryId")
     @OneToOne(cascade = CascadeType.ALL)

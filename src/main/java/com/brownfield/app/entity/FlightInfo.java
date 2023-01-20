@@ -35,10 +35,10 @@ public class FlightInfo {
     private String flightNumber;
     @NotBlank(message = "flighttype cannot be empty")
     private String flightType;
-    @NotNull
-    @Min(value = 10)
+    @NotNull(message = "invalid number of seats")
+    @Min(value = 10,message = "invalid number of seats")
     private Integer numberOfSeats;
-    @NotNull
+    @NotNull(message = "airline info cannot be empty")
     @Valid
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "flightAirlineInfo", joinColumns = {

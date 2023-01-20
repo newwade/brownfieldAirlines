@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.*;
 
 @Component
@@ -20,12 +19,12 @@ public class UserRegRequest {
     @NotBlank(message = "lastname cannot be empty")
     private String lastName;
     @NotBlank(message = "email cannot be empty")
-    @Email(message = "invalid email",regexp = GenericConstant.EMAILREGEXP)
+    @Email(regexp = GenericConstant.EMAILREGEXP,message = "invalid email")
     private String emailAddress;
     @NotBlank(message = "mobile number cannot be empty")
     @Pattern(regexp = GenericConstant.PHONEREGEXP,message = "invalid phone")
     private String mobileNumber;
-    @NotBlank(message = "password cannot be empty")
+    @NotEmpty(message = "password cannot be empty")
     @Size(min=8, message="password should have atleast 8 characters")
     private String password;
 }
