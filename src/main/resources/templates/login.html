@@ -30,14 +30,12 @@
 <div class="container">
     <div class="row">
             <div class="col-md-4 offset-md-4">
-
             <div th:if="${param.error}">
                 <div class="alert alert-danger">Invalid Email or Password</div>
             </div>
             <div th:if="${param.logout}">
                 <div class="alert alert-success"> You have been logged out.</div>
             </div>
-
             <div class="card">
                 <div class="mt-2 mb-2">
                     <h4 class="text-center fw-normal">Sign in</h4>
@@ -47,7 +45,7 @@
                             action="#"
                             method="post"
                             role="form"
-                            th:action="@{/api/v1/user/login}"
+                            th:action="@{/signin}"
                             class="form-horizontal"
                     >
                         <div class="form-group mb-3">

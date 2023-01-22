@@ -1,49 +1,90 @@
 package com.brownfield.app.controller;
 
+import com.brownfield.app.entity.BookingRecord;
 import com.brownfield.app.entity.Flight;
-import com.brownfield.app.request.FlightSearchRequest;
+import com.brownfield.app.model.request.FlightSearchRequest;
 import com.brownfield.app.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1/flight")
 public class FlightController {
 
     @Autowired
     private FlightService flightService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Flight> findFlightById(@PathVariable("id") long id){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = (String) auth.getPrincipal();
-        String password = (String) auth.getCredentials();
-        Collection<? extends GrantedAuthority> role = auth.getAuthorities();
-        List<String> roles = role.stream().map(elm->elm.toString()).collect(Collectors.toList());
+    @GetMapping
+    public ResponseEntity<List<BookingRecord>> findAllFlight(){
+        List<Flight> response = flightService.findAllFlight();
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{flightId}")
+    @ResponseBody
+    public ResponseEntity<Flight> findFlightById(@PathVariable("flightId") long id){
+
         Flight response = flightService.findFlightById(id);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @GetMapping("/airline/{airlineName}")
+    @ResponseBody
+    public ResponseEntity<List<Flight>> findFlightByAirline(@PathVariable("airlineName") String  airlineName){
+
+        List<Flight> response = flightService.findFlightByAirline(airlineName);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/info/{flightNumber}")
+    @ResponseBody
+    public ResponseEntity<List<Flight>> findFlightByFlightNumber(@PathVariable("flightNumber") String  flightNumber){
+        List<Flight> response = flightService.findFlightByFlightNumber(flightNumber);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @PostMapping("/save")
-    public ResponseEntity<Flight> saveFlight(@RequestBody Flight flight){
+    @ResponseBody
+    public ResponseEntity<Flight> saveFlight(@RequestBody @Valid Flight flight){
         Flight response = flightService.saveFlight(flight);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/find")
-    public ResponseEntity<List<Flight>> findFlightByOriginDestinationDate(@RequestBody FlightSearchRequest request){
-        List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
-                ,request.getDestination(),request.getDate());
+    @ResponseBody
+    public ResponseEntity<List<Flight>> findFlightByOriginDestinationDate(@RequestBody @Valid FlightSearchRequest request){
+        List<Flight> response = flightService.findByOriginDestinationDateService(request);
         return new ResponseEntity(response, HttpStatus.OK);
     }
+
+
+    @DeleteMapping("/cancel/{flightId}")
+    public ResponseEntity<String> deleteFlightById(@PathVariable("flightId") long id){
+        flightService.deleteFlightById(id);
+        return new ResponseEntity("Entity Deleted", HttpStatus.OK);
+    }
+
+
+
+//    @PostMapping("/page/find")
+//    public String findFlightModel(@ModelAttribute("flight") FlightSearchRequest request, BindingResult result, Model model){
+//        Object error = result.getAllErrors();
+//        List<Flight> response = flightService.findByOriginDestinationDateService(request.getOrigin()
+//                ,request.getDestination(),request.getDate());
+//        model.addAttribute("flights",response);
+//        return "flights";
+//    }
+//
+//    @GetMapping("/page/find")
+//    public String findFlightById(@RequestParam("id") long id,Model model){
+//        Flight flight = flightService.findFlightById(id);
+//        model.addAttribute("flight",flight);
+//        return "book";
+//    }
 
 }

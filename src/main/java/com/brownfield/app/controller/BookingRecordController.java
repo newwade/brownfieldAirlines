@@ -1,14 +1,14 @@
 package com.brownfield.app.controller;
 
 import com.brownfield.app.entity.BookingRecord;
-import com.brownfield.app.request.BookingRequest;
+import com.brownfield.app.model.request.BookingRequest;
 import com.brownfield.app.service.BookingService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,14 +18,20 @@ public class BookingRecordController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<BookingRecord>> findAllBooking(){
         List<BookingRecord> response = bookingService.findAllBooking();
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BookingRecord> findBookingById(@PathVariable("id") long id){
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BookingRecord>> findAllBookingByUser(@PathVariable("userId") long userId){
+        List<BookingRecord> response = bookingService.findAllBookingByUser(userId);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{bookingId}")
+    public ResponseEntity<BookingRecord> findBookingById(@PathVariable("bookingId") long id){
         BookingRecord response = bookingService.findBookingById(id);
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -36,5 +42,10 @@ public class BookingRecordController {
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/cancel/{bookingId}")
+    public ResponseEntity<?> deleteBookingById(@PathVariable("bookingId") long id){
+        bookingService.deleteBookingById(id);
+        return new ResponseEntity("Entity Deleted", HttpStatus.OK);
+    }
 
 }

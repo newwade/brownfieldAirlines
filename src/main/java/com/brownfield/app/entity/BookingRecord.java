@@ -1,16 +1,19 @@
 package com.brownfield.app.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "bookingRecord")
@@ -20,23 +23,33 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long bookingId;
     private long flightId;
     private String origin;
     private String destination;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate date;
-    @JsonFormat(pattern="HH:mm:ss")
-    private LocalTime time;
+    private long pnrNumber;
     private double fare;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate flightDate;
+    @DateTimeFormat(pattern="HH:mm:ss")
+    private LocalTime departureTime;
+    @DateTimeFormat(pattern="HH:mm:ss")
+    private LocalTime arrivalTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime bookingDate;
-    private String flightNumber;
-    private String status;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "paymentId")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Payment payment;
     @OneToMany(mappedBy = "bookingRecord",
-            orphanRemoval = true,
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Passenger> passengers;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "userId")
+    @JsonIgnore
+    private User user;
+
 }
