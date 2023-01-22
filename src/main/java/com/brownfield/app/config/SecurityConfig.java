@@ -14,10 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
+public class SecurityConfig implements WebMvcConfigurer {
 
     @Autowired
     private UserServiceImpl userService;
@@ -31,10 +33,14 @@ public class SecurityConfig{
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().disable();
-        http.csrf().disable();
+        http.cors().and().csrf().disable();
         http.headers().frameOptions().disable();
         http.authorizeHttpRequests((requests)->
                         requests.antMatchers("/api/v1/**").permitAll()
