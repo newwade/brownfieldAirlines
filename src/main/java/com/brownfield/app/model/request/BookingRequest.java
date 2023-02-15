@@ -21,8 +21,6 @@ public class BookingRequest {
 
     @Min(value = 1,message = "invalid flight id")
     private long flightId;
-    @Min(value = 1,message = "invalid user id")
-    private long userId;
     @NotEmpty(message = "passengers cannot be empty")
     @Valid
     List<Passenger> passengers;

@@ -37,8 +37,10 @@ public class BookingServiceImpl implements BookingService{
         if(flight.getInventory().getCount()<bookingRequest.getPassengers().size()){
             throw new BadRequestException("invalid number of passengers");
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User current_user = (User) auth.getPrincipal();
+        User user = userService.findById(current_user.getId());
         BookingRecord bookingRecord = new BookingRecord();
-        User user = userService.findById(bookingRequest.getUserId());
         bookingRecord.setUser(user);
         long pnr = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
         bookingRecord.setFlightId(bookingRequest.getFlightId());
@@ -87,15 +89,16 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public List<BookingRecord> findAllBookingByUser(long userId) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        User user = userService.findById(userId);
+    public List<BookingRecord> findAllBookingByUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User current_user = (User) auth.getPrincipal();
+        User user = userService.findById(current_user.getId());
         List<BookingRecord> bookingRecords = bookingRepository.findByUserId(user.getId());
         bookingRecords.sort(Comparator.comparing(BookingRecord::getFlightDate));
         logger.info("findAllBookingByUser method invoked");
         return bookingRecords;
     }
+
 
     @Override
     public List<BookingRecord> findAllBooking() {

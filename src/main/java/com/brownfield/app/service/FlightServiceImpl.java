@@ -101,9 +101,7 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public List<Flight> findByOriginDestinationDateService(FlightSearchRequest request) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) auth.getPrincipal();
-//        Role role = user.getRole();
+
         if(request.getDate().isBefore(LocalDate.now())){
             throw new BadRequestException("invalid flight date");
         }
