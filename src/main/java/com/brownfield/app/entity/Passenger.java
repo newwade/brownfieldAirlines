@@ -14,6 +14,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.brownfield.app.annotation.GenderValidation;
 import com.brownfield.app.constant.GenericConstant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -37,6 +38,7 @@ public class Passenger {
     @NotBlank(message = "lastname cannot be empty")
     private String lastName;
     @NotBlank(message = "gender cannot be empty")
+    @GenderValidation()
     private String gender;
     @NotBlank(message = "email cannot be empty")
     @Email(regexp = GenericConstant.EMAILREGEXP,message = "invalid email")
