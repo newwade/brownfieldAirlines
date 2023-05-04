@@ -6,7 +6,6 @@ import com.brownfield.app.model.request.UserRegRequest;
 import com.brownfield.app.model.response.LoginResponse;
 import com.brownfield.app.model.response.UserDetailResponse;
 import com.brownfield.app.service.UserServiceImpl;
-import com.brownfield.app.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,8 +2,6 @@ package com.brownfield.app.service;
 
 import com.brownfield.app.entity.Flight;
 import com.brownfield.app.model.request.FlightSearchRequest;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public interface FlightService {

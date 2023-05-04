@@ -1,8 +1,6 @@
 package com.brownfield.app.service;
 
-import com.brownfield.app.constant.Role;
 import com.brownfield.app.entity.Flight;
-import com.brownfield.app.entity.User;
 import com.brownfield.app.exception.BadRequestException;
 import com.brownfield.app.exception.RecordNotFoundException;
 import com.brownfield.app.model.request.FlightSearchRequest;
@@ -11,16 +9,11 @@ import com.brownfield.app.repository.FlightRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
